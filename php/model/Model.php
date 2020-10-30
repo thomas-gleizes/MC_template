@@ -20,12 +20,12 @@ class Model {
         }
     }
 
-    public static function sendRequest($sql = "", $values = []) {
+    public static function sendRequest($sql = "", $values = [], $PDO_MODE = PDO::FETCH_ASSOC, $fetch = 'fetchAll') {
         try {
             $req_prep = self::$pdo->prepare($sql);
             $req_prep->execute($values);
-            $req_prep->setFetchMode(PDO::FETCH_ASSOC);
-            return $req_prep->fetchAll();
+            $req_prep->setFetchMode($PDO_MODE);
+            return $req_prep->$fetch();
         } catch (PDOException $e) {
             return $e->getCode();
         }
