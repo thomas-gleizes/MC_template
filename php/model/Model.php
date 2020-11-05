@@ -4,7 +4,7 @@ File::requireOnce(REP_CONFIG, 'conf.php');
 
 class Model {
 
-    public static $pdo;
+    private static $pdo;
 
     public static function Init() {
         try {
@@ -20,14 +20,14 @@ class Model {
         }
     }
 
-    public static function sendRequest($sql = "", $values = [], $PDO_MODE = PDO::FETCH_ASSOC, $fetch = 'fetchAll') {
+    public static function sendRequest($sql, $values = [], $PDO_MODE = PDO::FETCH_ASSOC, $fetch = 'fetchAll') {
         try {
             $req_prep = self::$pdo->prepare($sql);
             $req_prep->execute($values);
             $req_prep->setFetchMode($PDO_MODE);
             return $req_prep->$fetch();
         } catch (PDOException $e) {
-            return $e->getCode();
+            return ["codeError" => $e->getCode(), "message" => $e->getMessage()];
         }
     }
 

@@ -11,7 +11,7 @@ class File {
     }
 
     public static function requireOnce($directory, $file){
-        require(File::build_path(array($directory, $file)));
+        require_once(File::build_path(array($directory, $file)));
     }
 
 
