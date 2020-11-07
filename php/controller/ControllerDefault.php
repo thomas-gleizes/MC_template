@@ -6,7 +6,7 @@ class ControllerDefault {
 
     private static $resp = array(
         'error' => null,
-        'res' => null,
+        'data' => null,
     );
 
 

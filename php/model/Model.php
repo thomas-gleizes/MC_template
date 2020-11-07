@@ -20,13 +20,22 @@ class Model {
         }
     }
 
-    public static function sendRequest($sql, $values = [], $PDO_MODE = PDO::FETCH_ASSOC, $fetch = 'fetchAll') {
+    public static function selectRequest($sql, $values = [], $PDO_MODE = PDO::FETCH_ASSOC, $fetch = 'fetchAll') {
         try {
             $req_prep = self::$pdo->prepare($sql);
             $req_prep->execute($values);
             $req_prep->setFetchMode($PDO_MODE);
             return $req_prep->$fetch();
         } catch (PDOException $e) {
+            return ["codeError" => $e->getCode(), "message" => $e->getMessage()];
+        }
+    }
+
+    public static function insertRequest($sql, $values = []){
+        try {
+            $req_prep = self::$pdo->prepare($sql);
+            $req_prep->execute($values);
+        } catch (PDOException $e){
             return ["codeError" => $e->getCode(), "message" => $e->getMessage()];
         }
     }
