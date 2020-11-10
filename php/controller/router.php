@@ -1,9 +1,12 @@
 <?php
 
 File::requireOnce(REP_LIB, 'Session.php');
-File::requireOnce(REP_CONTROLLER, 'ControllerDefault.php');
 
-if (!$_REQUEST == null && isset($_REQUEST['action'])) {
-
+if (!$_REQUEST == null) {
+    if (isset($_REQUEST['Default'])){
+        File::requireOnce(REP_CONTROLLER, 'ControllerDefault.php');
+        $action = $_REQUEST['Default'];
+        ControllerDefault::$action();
+    }
 
 }
