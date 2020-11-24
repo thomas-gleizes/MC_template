@@ -40,6 +40,15 @@ class Model {
         }
     }
 
+    public static function rowCount(){
+        return self::$pdo->rowCount();
+    }
+
+    public static function getLastInsertId(){
+        return self::$pdo->lastInsertId();
+    }
+
+
 }
 
 Model::Init();
